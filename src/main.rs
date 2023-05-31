@@ -1,3 +1,4 @@
+use colored::*;
 use std::env;
 use std::process;
 
@@ -11,8 +12,9 @@ fn main() {
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
+    println!("Searching for {}", config.query.yellow());
+    println!("In file {}", config.filename.red());
+    println!("---------------");
 
     if let Err(e) = minigrep::run(config) {
         eprintln!("Application error: {}", e);
