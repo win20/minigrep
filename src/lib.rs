@@ -19,6 +19,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub struct Config {
+    pub option: String,
     pub query: String,
     pub filename: String,
     pub case_sensitive: bool,
@@ -26,15 +27,33 @@ pub struct Config {
 
 impl Config {
     pub fn new(args: &[String]) -> Result<Config, &str> {
+        let mut option = String::new();
+        let mut query = String::new();
+        let mut filename = String::new();
+
         if args.len() < 3 {
             return Err("Not enough argument");
+        } else if args.len() == 4 {
+            option = args[1].clone();
+            query = args[2].clone();
+            filename = args[3].clone();
+        } else {
+            query = args[1].clone();
+            filename = args[2].clone();
         }
-        let query = args[1].clone();
-        let filename = args[2].clone();
 
-        let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
+        let mut case_sensitive = true;
+
+        if option != "" {
+            if option == "-c" {
+                case_sensitive = false;
+            } else {
+                println!("Argument {} was not recognized", option)
+            }
+        }
 
         Ok(Config {
+            option,
             query,
             filename,
             case_sensitive,
