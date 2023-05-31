@@ -1,4 +1,3 @@
-use std::env;
 use std::error::Error;
 use std::fs;
 
@@ -28,8 +27,8 @@ pub struct Config {
 impl Config {
     pub fn new(args: &[String]) -> Result<Config, &str> {
         let mut option = String::new();
-        let mut query = String::new();
-        let mut filename = String::new();
+        let query: String;
+        let filename: String;
 
         if args.len() < 3 {
             return Err("Not enough argument");
