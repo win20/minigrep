@@ -5,7 +5,7 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    let mut x = 20;
+    let mut _x = 10;
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
